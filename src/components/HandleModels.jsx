@@ -3,16 +3,29 @@ import Body from "./Body.jsx";
 import ClearChat from "./ClearChat.jsx";
 
 function HandleModels() {
-  const [mname, setMname] = useState("");
+  const [chatHistory, setChatHistory] = useState([]); // Store chat messages
+  const [modelName, setModelName] = useState(""); // Store selected model
 
-  function handleModelSelection(model) {
-    setMname(model);
-  }
+  const handleModelSelection = (model) => {
+    setModelName(model);
+  };
+
+  // Function to clear chat history
+  const clearChat = () => {
+    setChatHistory([]); 
+  };
 
   return (
     <>
-      <ClearChat onClearChat={() => setMname("")} />
-      <Body n={mname} />
+      {/* Header with Clear Chat Button */}
+      <ClearChat onClearChat={clearChat} />
+      
+      {/* Chat Body */}
+      <Body 
+        chatHistory={chatHistory} 
+        setChatHistory={setChatHistory} 
+        modelName={modelName} 
+      />
     </>
   );
 }
